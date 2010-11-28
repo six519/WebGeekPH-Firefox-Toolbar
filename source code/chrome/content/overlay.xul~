@@ -1,0 +1,80 @@
+<?xml version="1.0"?>
+<?xml-stylesheet type="text/css" href="chrome://webgeek/content/style.css"?>
+<overlay id="webgeek-toolbar" xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul">
+<script type="application/x-javascript" src="chrome://webgeek/content/script.js" />
+<toolbox id="navigator-toolbox">
+  <toolbar id="nav-toolbar">
+	<toolbaritem>
+		<toolbarbutton type="menu" label="" id="wbButton" tooltiptext="WebGeek Philippines" dir="normal" image="chrome://webgeek/content/logo.png">
+			<menupopup>
+				<menuitem class="menuitem-iconic" label="Privacy" tooltiptext="Our Privacy Statement" dir="normal" image="chrome://webgeek/content/privacy.png" onclick="gotoSite('http://webgeekph.com/privacy-policy/')" />
+				<menuitem class="menuitem-iconic" label="Home Page" tooltiptext="Visit Our Website" dir="normal" image="chrome://webgeek/content/home.png" onclick="gotoSite('http://webgeekph.com/')" />
+				<menuitem class="menuitem-iconic" label="Contact" tooltiptext="Contact Us" dir="normal" image="chrome://webgeek/content/contact.png" onclick="gotoSite('http://webgeekph.com/contact/')" />
+			</menupopup>
+		</toolbarbutton>
+		<textbox id="searchQuery" value="Search" flex="1" onkeypress="searchEnter(event)" onclick="clearSearch()" onblur="unclearSearch()" />
+		<textbox id="hiddenText" value="" hidden="true" />
+		<textbox id="hiddenText2" value="" hidden="true" />
+		<textbox id="hiddenText3" value="" hidden="true" />
+
+
+		<textbox id="hiddenPicText0" value="" hidden="true" />
+		<textbox id="hiddenPicText1" value="" hidden="true" />
+		<textbox id="hiddenPicText2" value="" hidden="true" />
+		<textbox id="hiddenPicText3" value="" hidden="true" />
+		<textbox id="hiddenPicText4" value="" hidden="true" />
+		<textbox id="hiddenPicText5" value="" hidden="true" />
+		<textbox id="hiddenPicText6" value="" hidden="true" />
+		<textbox id="hiddenPicText7" value="" hidden="true" />
+		<textbox id="hiddenPicText8" value="" hidden="true" />
+		<textbox id="hiddenPicText9" value="" hidden="true" />
+		<textbox id="hiddenPicText10" value="" hidden="true" />
+		<textbox id="hiddenPicText11" value="" hidden="true" />
+		<textbox id="hiddenPicText12" value="" hidden="true" />
+		<textbox id="hiddenPicText13" value="" hidden="true" />
+		<textbox id="hiddenPicText14" value="" hidden="true" />
+		<textbox id="hiddenPicText15" value="" hidden="true" />
+		<textbox id="hiddenPicText16" value="" hidden="true" />
+		<textbox id="hiddenPicText17" value="" hidden="true" />
+		<textbox id="hiddenPicText18" value="" hidden="true" />
+		<textbox id="hiddenPicText19" value="" hidden="true" />
+
+		<toolbarbutton label="Go" onclick="searchWB()" id="searchButton" tooltiptext="Search The WebGeek Forum" dir="normal" image="chrome://webgeek/content/Web-search.png" />
+		<toolbarseparator />
+		<toolbarbutton type="menu" onclick="getBlog()" label="Blog" id="blogButton" tooltiptext="Show The Latest Blog Posts" dir="normal" image="chrome://webgeek/content/Rss.png">
+			<menupopup id="blogItem">
+				
+			</menupopup>
+		</toolbarbutton>
+		<toolbarbutton type="menu" onclick="getForum()" label="Forum" id="forumButton" tooltiptext="Show The Latest Forum Posts" dir="normal" image="chrome://webgeek/content/Rss.png">
+			<menupopup id="forumItem">
+
+			</menupopup>
+		</toolbarbutton>
+		<toolbarbutton type="menu" label="Stay Connected" id="linkButton" tooltiptext="WebGeek Links" dir="normal" image="chrome://webgeek/content/Web-link.png">
+			<menupopup>
+				<menuitem class="menuitem-iconic" label="Facebook" dir="normal" image="chrome://webgeek/content/facebook.png" onclick="gotoSite('http://www.facebook.com/webgeek')" />
+				<menuitem class="menuitem-iconic" label="Plurk" dir="normal" image="chrome://webgeek/content/plurk.png" onclick="gotoSite('http://www.plurk.com/webgeekph')" />
+				<menuitem class="menuitem-iconic" label="Twitter" dir="normal" image="chrome://webgeek/content/twitter.png" onclick="gotoSite('http://twitter.com/webgeekph')" />
+				<menuitem class="menuitem-iconic" label="Multiply" dir="normal" image="chrome://webgeek/content/multiply.png" onclick="gotoSite('http://webgeekph.multiply.com/')" />
+			</menupopup>
+		</toolbarbutton>
+		<toolbarseparator />
+		<toolbarbutton label="0 User Online" id="onlineButton" onclick="gotoSite('http://forum.webgeekph.com/index.php?action=who')" tooltiptext="Number of User Online" dir="normal" image="chrome://webgeek/content/user.png" />
+		<toolbarseparator />
+	</toolbaritem>
+
+	<toolbaritem id="userLogin" hidden="true">
+		<textbox id="username" value="Username" onkeypress="loginEnter(event)" width="100" onclick="clearTBox('username','Username')" onblur="unclearTBox('username','Username')" />
+		<textbox id="password" value="Password" onkeypress="loginEnter(event)" width="100" type="password" onclick="clearTBox('password','Password')" onblur="unclearTBox('password','Password')" />
+		<toolbarbutton dir="normal" id="loggingBut" onclick="loggingIn()" image="chrome://webgeek/content/login.png" label="Login" tooltiptext="Login To Webgeekph.com" />
+	</toolbaritem>
+
+	<toolbaritem id="userLogout" hidden="true">
+		<toolbarbutton id="userMsg" dir="normal" tooltiptext="View Message" image="chrome://webgeek/content/Mail.png" onclick="gotoSite('http://forum.webgeekph.com/index.php?action=pm')" />
+		<toolbarbutton id="userLabel" dir="normal" onclick="loggingOut()" tooltiptext="Logout To Webgeekph.com" image="chrome://webgeek/content/logout.png" />
+	</toolbaritem>
+
+  </toolbar>
+</toolbox>
+</overlay>

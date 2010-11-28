@@ -1,0 +1,2 @@
+content		webgeek		chrome/content/
+overlay chrome://browser/content/browser.xul chrome://webgeek/content/overlay.xul

@@ -1,0 +1,567 @@
+/******************************
+*Gawa ni:
+*Ferdinand E. Silva (Baguhan lamang)
+*---------------------------------
+*Ikaw ha... Binabasa mo ang code ko :) PEACE!
+*Last Update: August 1, 2010
+*******************************/
+
+//function resetAvatar(cnt)
+//{
+//	for(x=0;x<cnt;x++)
+//	{
+//		document.getElementById('hiddenPicText' + x).value='';
+//	}
+//}
+
+function gotoSite(url)
+{
+	window._content.document.location = url;
+	window.content.focus();
+}
+
+function gotoSite2(evt,url)
+{
+	if(evt.button == 0)
+	{ //leftclick
+	  //open to current tab
+		gotoSite(url);
+	}
+	else if(evt.button == 2)
+	{ //right click
+	  //open to another tab
+		var newTab=window.getBrowser().addTab(url,null,null);
+		window.getBrowser().selectedTab=newTab;
+	}
+}
+
+function clearSearch()
+{
+	if(document.getElementById('searchQuery').value == 'Search')
+	{
+		document.getElementById('searchQuery').value='';
+	}	
+}
+
+function unclearSearch()
+{
+	if(document.getElementById('searchQuery').value == '')
+	{
+		document.getElementById('searchQuery').value='Search';
+	}
+}
+
+
+function clearTBox(ele,val)
+{
+	if(document.getElementById(ele).value == val)
+	{
+		document.getElementById(ele).value='';
+	}
+}
+
+function unclearTBox(ele,val)
+{
+	if(document.getElementById(ele).value == '')
+	{
+		document.getElementById(ele).value=val;
+	}
+}
+
+
+function clearAllChild(id)
+{
+	var cell = document.getElementById(id);
+
+	if(cell.hasChildNodes())
+	{
+    		while ( cell.childNodes.length >= 1 )
+    		{
+        		cell.removeChild(cell.firstChild);       
+    		} 
+	}
+
+}
+
+
+function getForum()
+{ 
+	var xmlhttp=new XMLHttpRequest();
+
+	xmlhttp.onreadystatechange=function()
+	{
+		if(xmlhttp.readyState==4)
+		{
+				
+			if(xmlhttp.status==200)
+			{
+				//alert(xmlhttp.responseText);
+				clearAllChild('forumItem');
+				//resetAvatar(19); //clear the hiddenpic element (20 lang cya)
+				var xmlDoc=xmlhttp.responseXML.documentElement;
+				var x2=0;
+				var fi=document.getElementById('forumItem');
+
+				for(x=0;x<xmlDoc.getElementsByTagName("recent-post").length;x++)
+				{
+					//var rp=xmlDoc.getElementsByTagName("recent-post");
+
+					var newel=document.createElement("menuitem");
+					newel.setAttribute('label',xmlDoc.getElementsByTagName('subject')[x2].childNodes[0].nodeValue);
+
+					var poster=xmlDoc.getElementsByTagName('poster');
+					poster=poster[x].getElementsByTagName('name')[0].childNodes[0].nodeValue;
+
+					var posterURL=xmlDoc.getElementsByTagName('poster');
+					posterURL=posterURL[x].getElementsByTagName('link')[0].childNodes[0].nodeValue;
+
+					var topic=xmlDoc.getElementsByTagName('topic');
+					topic=topic[x].getElementsByTagName('id')[0].childNodes[0].nodeValue;
+
+					var msg=xmlDoc.getElementsByTagName('recent-post');
+					msg=msg[x].getElementsByTagName('id')[0].childNodes[0].nodeValue;
+
+					//newel.setAttribute('tooltiptext',xmlDoc.getElementsByTagName('time')[x].childNodes[0].nodeValue + ' by ' + poster);
+
+
+					//to get picture test
+
+					
+					var newel2=document.createElement("tooltip");
+					newel2.setAttribute('id','picTip' + x2);
+					newel2.setAttribute('align','center');
+
+					var newel3=document.createElement("label"); //this is the tooltip text
+					newel3.setAttribute('value',xmlDoc.getElementsByTagName('time')[x].childNodes[0].nodeValue + ' by ' + poster);
+
+
+					var newel4=document.createElement("image"); //this is the image in tooltip
+
+					setProfilePic(posterURL,x);
+
+					newel4.setAttribute('src',document.getElementById('hiddenPicText' + x).value);
+					//newel4.setAttribute('align','center');
+					//newel4.setAttribute('width','2');
+					//newel4.setAttribute('height','300');
+
+
+					//alert(getProfilePic(posterURL));
+
+
+					newel2.appendChild(newel3);
+					newel2.appendChild(newel4);
+
+					fi.appendChild(newel2); //tooltip element (testing only)
+
+					newel.setAttribute('tooltip','picTip' + x2);
+
+					//end to get pictures test
+
+
+					newel.setAttribute('id','http://webgeekph.com/forum/index.php?topic=' + topic + '.msg' + msg + '#msg' + msg);
+
+
+					if(newel.getAttribute('id') == window.content.location.href)
+					{ //lagyan ng check icon (ibig sabhin eh current page)
+					  newel.setAttribute('class','menuitem-iconic');
+					  newel.setAttribute('image','chrome://webgeek/content/ok.png');
+					}
+
+					x2+=2;
+
+					//alert('http://forum.webgeekph.com/index.php?topic=' + topic + '.msg' + msg + '#msg' + msg);
+
+					//newel.addEventListener("click", function(e){ gotoSite(this.id);}, false);
+					newel.addEventListener("click", function(event){ gotoSite2(event,this.id);}, false);
+
+					fi.appendChild(newel);
+				}
+			}
+			
+		}
+	}
+
+	url="http://webgeekph.com/forum/index.php?action=.xml&limit=20";
+	xmlhttp.open("GET",url,true);
+	xmlhttp.setRequestHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+	xmlhttp.send(null);
+
+}
+
+
+
+function setProfilePic(url,num)
+{
+	var xmlhttp=new XMLHttpRequest();
+
+	xmlhttp.onreadystatechange=function()
+	{
+		if(xmlhttp.readyState==4)
+		{
+				
+			if(xmlhttp.status==200)
+			{
+
+				var txt=xmlhttp.responseText;
+				var txt2='';
+				var txt3='';
+				//txt=txt.match(/action=search2;params=.+>Search Results<\/a>/);
+
+				//3 klaso ang ipagmamatch dpat... ung me attached,image from wbgeek, or ung url...
+				txt2=txt.match(/http:\/\/webgeekph\.com\/forum\/index\.php\?action=dlattach;attach=.+;type=avatar/);
+				txt3=txt.match(/http:\/\/webgeekph.com\/forum\/avatars\/.+" alt="" class="avatar"/);
+
+				//alert(txt);
+
+				document.getElementById('hiddenPicText' + num).value=''; //reset the pic
+
+				if(txt2 != null)
+				{ //me attached image
+
+					document.getElementById('hiddenPicText' + num).value=txt2;
+				}
+				else if(txt3 != null)
+				{ //gamit ang webgeek avatar
+
+					//alert(txt3.replace('" alt="" class="avatar"',''));
+					document.getElementById('hiddenText4').value=txt3;
+					document.getElementById('hiddenPicText' + num).value=document.getElementById('hiddenText4').value.replace('" alt="" class="avatar"','');
+
+				}
+				else
+				{ //no photo avatar
+					//alert('null');
+					//chrome://webgeek/content/webgeek.png
+
+					document.getElementById('hiddenPicText' + num).value='chrome://webgeek/content/webgeek.png';
+				}
+
+				//alert(document.getElementById('hiddenPicText' + num).value);
+
+
+			}
+			
+		}
+	}
+
+	//url="http://feeds.feedburner.com/webgeekph-blog";
+	xmlhttp.open("GET",url,true);
+	xmlhttp.setRequestHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+	xmlhttp.send(null);
+}
+
+
+function getBlog()
+{
+	var xmlhttp=new XMLHttpRequest();
+
+	xmlhttp.onreadystatechange=function()
+	{
+		if(xmlhttp.readyState==4)
+		{
+				
+			if(xmlhttp.status==200)
+			{
+				clearAllChild('blogItem');
+				var xmlDoc=xmlhttp.responseXML.documentElement;
+
+				for(x=0;x<xmlDoc.getElementsByTagName("item").length;x++)
+				{
+					var maitem=xmlDoc.getElementsByTagName('item');
+					var title=maitem[x].getElementsByTagName('title')[0].childNodes[0].nodeValue;
+					var link=maitem[x].getElementsByTagName('link')[0].childNodes[0].nodeValue;
+					var pubDate=maitem[x].getElementsByTagName('pubDate')[0].childNodes[0].nodeValue;
+					var creator=maitem[x].getElementsByTagName('dc:creator')[0].childNodes[0].nodeValue;
+					
+
+					var newel=document.createElement("menuitem");
+					newel.setAttribute('label',title);
+					newel.setAttribute('id',link);
+					newel.setAttribute('tooltiptext',pubDate + ' by ' + creator);
+
+					if(newel.getAttribute('id') == window.content.location.href)
+					{ //lagyan ng check icon (ibig sabhin eh current page)
+					  newel.setAttribute('class','menuitem-iconic');
+					  newel.setAttribute('image','chrome://webgeek/content/ok.png');
+					}
+
+					//newel.addEventListener("click", function(e){ gotoSite(this.id);}, false);
+					newel.addEventListener("click", function(event){ gotoSite2(event,this.id);}, false);
+
+					var bi=document.getElementById('blogItem');
+					bi.appendChild(newel);
+				}
+			}
+			
+		}
+	}
+
+	url="http://feeds.feedburner.com/webgeekph-blog";
+	xmlhttp.open("GET",url,true);
+	xmlhttp.setRequestHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+	xmlhttp.send(null);
+}
+
+
+function getTotalOnline()
+{
+	var xmlhttp=new XMLHttpRequest();
+
+	xmlhttp.onreadystatechange=function()
+	{
+		if(xmlhttp.readyState==4)
+		{
+				
+			if(xmlhttp.status==200)
+			{
+				var txt=xmlhttp.responseText;
+				txt=txt.match(/[0-9]+ Users|[0-9]+ User/);
+				
+				document.getElementById('onlineButton').setAttribute('label',txt + ' Online');
+			}
+			
+		}
+	}
+
+	url="http://webgeekph.com/forum/SSI.php?ssi_function=whosOnline";
+	xmlhttp.open("GET",url,true);
+	xmlhttp.setRequestHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+	xmlhttp.send(null);
+	setTimeout('getTotalOnline()',5000);
+}
+
+
+function loggingOut()
+{
+	var xmlhttp=new XMLHttpRequest();
+	document.getElementById('userLabel').disabled=true;
+
+	xmlhttp.onreadystatechange=function()
+	{
+		if(xmlhttp.readyState==4)
+		{
+				
+			if(xmlhttp.status==200)
+			{
+				var txt=xmlhttp.responseText;
+				var txt2=txt;
+				txt=txt.match(/<a href=".+">Logout<\/a>/);
+
+				document.getElementById('hiddenText3').value=txt;
+
+				if(txt2.match(/<a href=".+">Logout<\/a>/))
+				{
+					gotoSite(document.getElementById('hiddenText3').value.replace('<a href="','').replace('">Logout</a>',''));
+				}
+
+
+				document.getElementById('userLogin').setAttribute('hidden','false');
+				document.getElementById('userLogout').setAttribute('hidden','true');
+				document.getElementById('userLabel').disabled=false;
+				
+			}
+			
+		}
+	}
+
+	url="http://webgeekph.com/forum/SSI.php?ssi_function=logout";
+	xmlhttp.open("GET",url,true);
+	xmlhttp.setRequestHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+	xmlhttp.send(null);
+}
+
+
+function isOnline()
+{
+	var xmlhttp=new XMLHttpRequest();
+
+	xmlhttp.onreadystatechange=function()
+	{
+		if(xmlhttp.readyState==4)
+		{
+				
+			if(xmlhttp.status==200)
+			{
+				var txt=xmlhttp.responseText;
+
+				if(txt.match(/Welcome, <b>Guest<\/b>/))
+				{ //show login
+					document.getElementById('userLogin').setAttribute('hidden','false');
+					document.getElementById('userLogout').setAttribute('hidden','true');
+					//document.getElementById('username').disabled=false;
+					//document.getElementById('password').disabled=false;
+					//document.getElementById('loggingBut').disabled=false;
+				}
+				else
+				{ //show logout
+					var uname=txt.match(/Hey, <b>.+<\/b>/);
+					document.getElementById('hiddenText2').value=uname;
+					uname=document.getElementById('hiddenText2').value.replace('Hey, <b>','').replace('</b>','');
+
+					var msg=txt.match(/[0-9]+ message/);
+
+					document.getElementById('userMsg').setAttribute('label',msg);
+					document.getElementById('userLabel').setAttribute('label','Logout (' + uname + ')');
+					
+					document.getElementById('userLogin').setAttribute('hidden','true');
+					document.getElementById('userLogout').setAttribute('hidden','false');
+					//document.getElementById('userLabel').disabled=false;
+				}
+			}
+			
+		}
+	}
+
+	url="http://webgeekph.com/forum/SSI.php?ssi_function=welcome";
+	xmlhttp.open("GET",url,true);
+	xmlhttp.setRequestHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+	xmlhttp.send(null);
+	setTimeout('isOnline()',2000);
+}
+
+mensahe='';
+
+function loggingIn()
+{
+	var xmlhttp=new XMLHttpRequest();
+	var params = "cookielength=-1&user=" + document.getElementById('username').value + "&passwrd=" + document.getElementById('password').value ;
+
+	document.getElementById('username').disabled=true;
+	document.getElementById('password').disabled=true;
+	document.getElementById('loggingBut').disabled=true;
+
+	var uname=document.getElementById('username').value;
+
+	xmlhttp.onreadystatechange=function()
+	{
+		if(xmlhttp.readyState==4)
+		{
+				
+			if(xmlhttp.status==200)
+			{
+				var txt=xmlhttp.responseText;
+
+				if(txt.match("You should fill in a username"))
+				{
+					//alert('You should fill in a username');
+					mensahe='You should fill in a username';
+					window.open('chrome://webgeek/content/alerter.xul','myDialog','chrome,dialog,modal');
+
+				}
+				else if(txt.match("That username does not exist"))
+				{
+					//alert('That username does not exist');
+					mensahe="That username does not exist";
+					window.open('chrome://webgeek/content/alerter.xul','','chrome,dialog,modal');
+				}
+				else if(txt.match("Password incorrect"))
+				{
+					//alert('Password incorrect');
+					mensahe='Password incorrect';
+					window.open('chrome://webgeek/content/alerter.xul','','chrome,dialog,modal');
+				}
+				else if(txt.match("You didn't enter your password"))
+				{
+					//alert("You didn't enter your password");
+					mensahe="You didn't enter your password";
+					window.open('chrome://webgeek/content/alerter.xul','','chrome,dialog,modal');
+				}
+				else
+				{
+					document.getElementById('userLogin').setAttribute('hidden','true');
+					document.getElementById('userLogout').setAttribute('hidden','false');
+					gotoSite('http://webgeekph.com/forum/');
+					//content.document.getElementsByTagName('body')[0].innerHTML=txt;
+				}
+
+					document.getElementById('username').disabled=false;
+					document.getElementById('password').disabled=false;
+					document.getElementById('loggingBut').disabled=false;
+
+			}
+			
+		}
+	}
+
+	url="http://webgeekph.com/forum/index.php?action=login2";
+	xmlhttp.open("POST",url,true);
+	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xmlhttp.setRequestHeader("Content-length", params.length);
+	xmlhttp.setRequestHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+	xmlhttp.setRequestHeader("Connection", "close");
+	xmlhttp.send(params);
+}
+
+
+function loginEnter(event)
+{
+	if(event.keyCode == 13)
+	{
+		loggingIn();
+	}
+}
+
+
+function searchEnter(event)
+{
+	if(event.keyCode == 13)
+	{
+		searchWB();
+	}
+}
+
+
+function searchWB()
+{
+	var xmlhttp=new XMLHttpRequest();
+	var params = "submit=Search&advanced=0&search=" + document.getElementById('searchQuery').value;
+
+	document.getElementById('searchButton').disabled=true;
+	document.getElementById('searchQuery').disabled=true;
+
+	//alert(document.getElementById('searchQuery').value);
+
+	xmlhttp.onreadystatechange=function()
+	{
+		if(xmlhttp.readyState==4)
+		{
+				
+			if(xmlhttp.status==200)
+			{
+				var txt=xmlhttp.responseText;
+				//txt=txt.match(/<a href=".+params=.+">Search<\/a>/);
+				//txt=txt.match(/params=.+[^start][^href=][^Results][^params]">/);
+				//alert(txt);
+				txt=txt.match(/action=search2;params=.+>Search Results<\/a>/);
+				//content.document.getElementsByTagName("body")[0].innerHTML=txt;
+				//alert(txt);
+				/**********
+				try{
+				txt=txt.replace('">Search</a>','');
+				}catch(e)
+				{
+				alert(e);
+				}
+
+				***********/
+
+				document.getElementById('hiddenText').value=txt;
+				gotoSite('http://webgeekph.com/forum/index.php?' + document.getElementById('hiddenText').value.replace('">Search Results</a>',''));
+
+				document.getElementById('searchButton').disabled=false;
+				document.getElementById('searchQuery').disabled=false;
+			}
+			
+		}
+	}
+
+	url="http://webgeekph.com/forum/index.php?action=search2";
+	xmlhttp.open("POST",url,true);
+	xmlhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	xmlhttp.setRequestHeader("Content-length", params.length);
+	xmlhttp.setRequestHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+	xmlhttp.setRequestHeader("Connection", "close");
+	xmlhttp.send(params);
+}
+
+window.addEventListener("load", function(e) { getBlog();getForum();getTotalOnline();isOnline(); }, false); 

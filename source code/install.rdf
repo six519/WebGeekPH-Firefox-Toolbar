@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+  <Description about="urn:mozilla:install-manifest">
+    <em:id>toolbar@webgeekph.com</em:id>
+    <em:version>1.5</em:version>
+    <em:type>2</em:type>
+    
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>1.5</em:minVersion>
+        <em:maxVersion>3.6.*</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+   
+    <em:name>WebGeek Toolbar</em:name>
+    <em:description>WebGeek Toolbar</em:description>
+    <em:creator>Ferdinand Silva</em:creator>
+    <em:homepageURL>http://webgeekph.com/</em:homepageURL>
+
+<em:updateURL>http://javascriptfs.freehostia.com/webgeekph/update.rdf</em:updateURL>
+
+<em:updateKey>
+MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCouJGzBpEaNJsaZM3dj5P3GeQW0Lul0AH4HS3niV9qHsmR2/+IrfVCXWrNCHavp3xGDCAD3T4SHvSqHOFC2Eloccn1eP360Vvfbql7936QS+XkY88y42xg4apuFRgKJnLjNkPj/BCDRLPFZ2ml3Dc4/4uP1PoXyyCSpPI78fgKjwIDAQAB
+</em:updateKey>
+
+  </Description>      
+</RDF>

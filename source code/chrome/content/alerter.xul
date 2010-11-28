@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<?xml-stylesheet href="chrome://global/skin/global.css" type="text/css"?>
+<dialog id="akin" title="Login Error"
+   xmlns="http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul"
+   buttons="accept"
+   buttonlabelaccept="Ok">
+<script type="application/x-javascript">
+
+function getMessage() {
+	window.centerWindowOnScreen();
+	document.getElementById('desc').value=window.opener.WebGeek.LoginMessage;
+}
+
+window.addEventListener("load", function(e) { getMessage();}, false);
+</script>
+<description id="desc" value="" />
+</dialog>

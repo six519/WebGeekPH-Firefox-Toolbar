@@ -1,0 +1,15 @@
+#searchQuery {
+	-moz-appearance: none;
+	background-image:url(chrome://webgeek/content/Search.png);
+	background-position:center left;
+	background-repeat:no-repeat;
+	padding-left:18px;
+}
+
+#username, #password {
+	-moz-appearance: none;
+}
+
+#linkButton > .toolbarbutton-menubutton-button, #forumButton > .toolbarbutton-menubutton-button, #blogButton > .toolbarbutton-menubutton-button, #wbButton > .toolbarbutton-menubutton-button, #userMsg > .toolbarbutton-menubutton-button, #userLabel > .toolbarbutton-menubutton-button {
+    -moz-box-orient: horizontal;
+}
