@@ -2,21 +2,21 @@
 <RDF:RDF xmlns:NS1="http://www.mozilla.org/2004/em-rdf#"
          xmlns:NC="http://home.netscape.com/NC-rdf#"
          xmlns:RDF="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
-  <RDF:Description RDF:about="rdf:#$mmUjB"
+  <RDF:Seq RDF:about="rdf:#$V.m5T3">
+    <RDF:li RDF:resource="rdf:#$W.m5T3"/>
+  </RDF:Seq>
+  <RDF:Description RDF:about="urn:mozilla:extension:toolbar@webgeekph.com"
+                   NS1:signature="MIGTMA0GCSqGSIb3DQEBDQUAA4GBAHjMVa0xyMCuFFbum8s/RkBuR9ZSZw1VcSqLA1z1tnv6u/XclKh8cLFemDmEN7DgaOKl1Ye1xYiMtsmThktqau+s/IusKsY9SM86GsJ4quJvLvtgpJPvJd6gG/YYTiTwGXdv6lFQkkogzFwbLyWX1tpOggvIn/0Y89ROOsAaMmFK">
+    <NS1:updates RDF:resource="rdf:#$V.m5T3"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="rdf:#$W.m5T3"
+                   NS1:version="1.6">
+    <NS1:targetApplication RDF:resource="rdf:#$Z.m5T3"/>
+  </RDF:Description>
+  <RDF:Description RDF:about="rdf:#$Z.m5T3"
                    NS1:id="{ec8030f7-c20a-464f-9b0e-13a3a9e97384}"
                    NS1:minVersion="1.5"
                    NS1:maxVersion="3.6.*"
-                   NS1:updateLink="http://javascriptfs.freehostia.com/webgeekph/toolbar.xpi"
-                   NS1:updateHash="sha256:6a286bfeed4fea71341740d520b31e7168cb8f7ca46c3c05cec59f7c1c6978b1" />
-  <RDF:Description RDF:about="urn:mozilla:extension:toolbar@webgeekph.com"
-                   NS1:signature="MIGTMA0GCSqGSIb3DQEBDQUAA4GBAF/A6wEmAlxEA+d3luWFa3PCzsNSJxjIWF4DiYoTMcLXcn7N+YQYT+JTAtWa9mxjhfYyOQIFjAJ6NjKWEQmFJOo92L5dKJl52vGGr5pco4kQ7AB+ZCUQxYtXlu0a2P7gFe8tkXb0l4j7b9+TfNtzaKnWoPClwW10Pnqrjp246uSa">
-    <NS1:updates RDF:resource="rdf:#$imUjB"/>
-  </RDF:Description>
-  <RDF:Description RDF:about="rdf:#$jmUjB"
-                   NS1:version="1.5">
-    <NS1:targetApplication RDF:resource="rdf:#$mmUjB"/>
-  </RDF:Description>
-  <RDF:Seq RDF:about="rdf:#$imUjB">
-    <RDF:li RDF:resource="rdf:#$jmUjB"/>
-  </RDF:Seq>
+                   NS1:updateLink="http://ferdinandsilva.com/webgeekph/toolbar.xpi"
+                   NS1:updateHash="sha256:8f87f5773215100764d940228f3fad42dce47873fddd05ace9cbf2956af574ee" />
 </RDF:RDF>
