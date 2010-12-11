@@ -5,7 +5,7 @@
 
   <Description about="urn:mozilla:install-manifest">
     <em:id>toolbar@webgeekph.com</em:id>
-    <em:version>1.5</em:version>
+    <em:version>1.6</em:version>
     <em:type>2</em:type>
     
     <em:targetApplication>
@@ -19,7 +19,7 @@
     <em:name>WebGeek Toolbar</em:name>
     <em:description>WebGeek Toolbar</em:description>
     <em:creator>Ferdinand Silva</em:creator>
-    <em:homepageURL>http://webgeekph.com/</em:homepageURL>
+    <em:homepageURL>http://ferdinandsilva.com</em:homepageURL>
 
 <em:updateURL>http://ferdinandsilva.com/webgeekph/update.rdf</em:updateURL>
 
